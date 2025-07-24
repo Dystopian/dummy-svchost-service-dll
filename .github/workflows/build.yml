@@ -18,7 +18,7 @@ jobs:
 
     - name: Build DLL
       run: |
-        cl /LD dummy-svchost-service-dll.cpp /Fe:dummy-svchost-service.dll
+        cl /LD dummy-svchost-service-dll.cpp advapi32.lib /Fe:dummy-svchost-service.dll
 
     - name: Upload DLL artifact
       uses: actions/upload-artifact@v4
