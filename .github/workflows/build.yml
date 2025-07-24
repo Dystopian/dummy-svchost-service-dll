@@ -1,0 +1,27 @@
+name: Build DLL
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up MSVC environment
+      uses: ilammy/msvc-dev-cmd@v1
+
+    - name: Build DLL
+      run: |
+        cl /LD dummy-svchost-service-dll.cpp /Fe:dummy-svchost-service.dll
+
+    - name: Upload DLL artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: dummy-svchost-service-dll
+        path: dummy-svchost-service.dll
