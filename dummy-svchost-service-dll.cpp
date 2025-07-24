@@ -1,11 +1,9 @@
-
 #include <windows.h>
 
 SERVICE_STATUS_HANDLE g_StatusHandle = nullptr;
 SERVICE_STATUS g_ServiceStatus = {};
 HANDLE g_StopEvent = nullptr;
 
-VOID WINAPI ServiceMain(DWORD argc, LPTSTR* argv);
 VOID WINAPI ServiceCtrlHandler(DWORD ctrlCode);
 
 extern "C" __declspec(dllexport)
@@ -15,11 +13,6 @@ VOID WINAPI ServiceMain(DWORD argc, LPTSTR* argv)
 
     g_ServiceStatus.dwServiceType = SERVICE_WIN32_SHARE_PROCESS;
     g_ServiceStatus.dwCurrentState = SERVICE_START_PENDING;
-    g_ServiceStatus.dwControlsAccepted = 0;
-    g_ServiceStatus.dwWin32ExitCode = 0;
-    g_ServiceStatus.dwServiceSpecificExitCode = 0;
-    g_ServiceStatus.dwCheckPoint = 0;
-    g_ServiceStatus.dwWaitHint = 0;
     SetServiceStatus(g_StatusHandle, &g_ServiceStatus);
 
     g_StopEvent = CreateEvent(nullptr, TRUE, FALSE, nullptr);
